@@ -1,0 +1,17 @@
+*
+
+!.gitignore
+!README.md
+!.devcontainer/
+!.devcontainer/devcontainer.json
+!mise.toml
+
+# Podman Systemd Quadlet
+!workloads/
+!workloads/adguard/
+!workloads/adguard/*.container
+!workloads/adguard/*.volume
+
+# Terraform
+!terraform/
+!terraform/*.tf
