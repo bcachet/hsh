@@ -2,21 +2,41 @@
   "name": "hsh",
   "image": "ghcr.io/bcachet/containers/dev:latest",
   "mounts": [
-      {
-        "source": "${localEnv:HOME}/.m2/settings.xml",
-        "target": "/home/vscode/.m2/settings.xml",
-        "type": "bind"
-      },
-      {
-        "source": "${localEnv:HOME}/.lein/profiles.clj",
-        "target": "/home/vscode/.lein/profiles.clj",
-        "type": "bind"
-      },
-      {
-        "source": "${localEnv:HOME}/.var/app/com.bitwarden.desktop/data/.bitwarden-ssh-agent.sock",
-        "target": "/home/vscode/.bitwarden-ssh-agent.sock",
-        "type": "bind"
-      }
+    {
+      "source": "${localEnv:HOME}/.m2/settings.xml",
+      "target": "/home/vscode/.m2/settings.xml",
+      "type": "bind"
+    },
+    {
+      "source": "${localEnv:HOME}/.lein/profiles.clj",
+      "target": "/home/vscode/.lein/profiles.clj",
+      "type": "bind"
+    },
+    {
+      "source": "${localEnv:HOME}/.var/app/com.bitwarden.desktop/data/.bitwarden-ssh-agent.sock",
+      "target": "/home/vscode/.bitwarden-ssh-agent.sock",
+      "type": "bind"
+    },
+    {
+      "source": "${localEnv:HOME}/.pki",
+      "target": "/home/vscode/.pki",
+      "type": "bind"
+    },
+    {
+      "source": "${localEnv:HOME}/.config/restish",
+      "target": "/home/vscode/.config/restish",
+      "type": "bind"
+    },
+    {
+      "source": "${localEnv:HOME}/.cache/restish",
+      "target": "/home/vscode/.cache/restish",
+      "type": "bind"
+    },
+    {
+      "source": "${localEnv:HOME}/.gnupg",
+      "target": "/home/vscode/.gnupg",
+      "type": "bind"
+    }
   ],
   "remoteEnv": {
       "SSH_AUTH_SOCK": "/home/vscode/.bitwarden-ssh-agent.sock",
@@ -24,7 +44,6 @@
   },
   "postCreateCommand": "/home/vscode/.local/bin/mise trust --yes --quiet && /home/vscode/.local/bin/mise install --yes",
   "features": {
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
   "customizations": {
     "vscode": {

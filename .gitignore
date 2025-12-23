@@ -11,6 +11,7 @@
 !workloads/adguard/
 !workloads/adguard/*.container
 !workloads/adguard/*.volume
+!workloads/adguard/*.yaml
 
 # Terraform
 !terraform/

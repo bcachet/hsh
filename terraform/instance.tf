@@ -3,7 +3,7 @@ data "exoscale_template" "template" {
   name = var.template_name
 }
 
-data "ct_config" "ollama" {
+data "ct_config" "hsh" {
   strict       = true
   pretty_print = true
   snippets     = []
@@ -54,7 +54,7 @@ resource "exoscale_compute_instance" "hsh" {
   security_group_ids = [exoscale_security_group.hsh.id]
   ssh_keys           = [var.ssh_key.name]
 
-  user_data = data.ct_config.ollama.rendered
+  user_data = data.ct_config.hsh.rendered
 }
 
 resource "exoscale_security_group" "hsh" {
@@ -70,7 +70,7 @@ resource "exoscale_security_group_rule" "hsh_ssh" {
   end_port          = 22
 }
 
-resource "exoscale_security_group_rule" "hsh_dns_tcp" {
+resource "exoscale_security_group_rule" "hsh_adguard_dns_tcp" {
   security_group_id = exoscale_security_group.hsh.id
   type              = "INGRESS"
   protocol          = "TCP"
@@ -79,7 +79,7 @@ resource "exoscale_security_group_rule" "hsh_dns_tcp" {
   end_port          = 53
 }
 
-resource "exoscale_security_group_rule" "hsh_dns_udp" {
+resource "exoscale_security_group_rule" "hsh_adguard_dns_udp" {
   security_group_id = exoscale_security_group.hsh.id
   type              = "INGRESS"
   protocol          = "UDP"
@@ -87,3 +87,13 @@ resource "exoscale_security_group_rule" "hsh_dns_udp" {
   start_port        = 53
   end_port          = 53
 }
+
+resource "exoscale_security_group_rule" "hsh_adguard_admin" {
+  security_group_id = exoscale_security_group.hsh.id
+  type              = "INGRESS"
+  protocol          = "TCP"
+  cidr              = "0.0.0.0/0"
+  start_port        = 5300
+  end_port          = 5300
+}
+
