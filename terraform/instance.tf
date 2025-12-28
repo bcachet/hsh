@@ -97,3 +97,11 @@ resource "exoscale_security_group_rule" "hsh_adguard_admin" {
   end_port          = 5300
 }
 
+resource "exoscale_security_group_rule" "hsh_adguard_dns_over_http" {
+  security_group_id = exoscale_security_group.hsh.id
+  type              = "INGRESS"
+  protocol          = "TCP"
+  cidr              = "0.0.0.0/0"
+  start_port        = 8080
+  end_port          = 8080
+}

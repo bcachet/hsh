@@ -1,3 +1,3 @@
 [tools]
-"github:doy/rbw" = "latest"
+"github:doy/rbw" = "1.14"
 terraform = "1.14"

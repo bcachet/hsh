@@ -1,0 +1,8 @@
+[Unit]
+Description=AdGuard Home (Kubernetes Pod)
+
+[Kube]
+Yaml=adguard.yaml
+
+[Install]
+WantedBy=default.target

@@ -9,8 +9,9 @@
 # Podman Systemd Quadlet
 !workloads/
 !workloads/adguard/
-!workloads/adguard/*.container
-!workloads/adguard/*.volume
+# !workloads/adguard/*.container
+# !workloads/adguard/*.volume
+!workloads/adguard/*.kube
 !workloads/adguard/*.yaml
 
 # Terraform
