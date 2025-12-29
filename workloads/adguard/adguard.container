@@ -10,13 +10,23 @@ Image=docker.io/adguard/adguardhome:latest
 Volume=adguard-work.volume:/opt/adguardhome/work:Z
 Volume=adguard-conf.volume:/opt/adguardhome/conf:Z
 
-# Admin interface
-PublishPort=5300:3000/tcp
-# Dashboard
-PublishPort=8088:80/tcp
-# DNS
+# DNS must remain published directly (not HTTP traffic)
 PublishPort=53:53/udp
 PublishPort=53:53/tcp
+
+# Traefik labels for HTTP services
+Label=traefik.enable=true
+Label=traefik.docker.network=systemd-dmz
+
+# Admin interface (port 3000)
+Label=traefik.http.routers.adguard-admin.rule="Host(`adguard-admin.localhost`)"
+Label=traefik.http.routers.adguard-admin.service=adguard-admin
+Label=traefik.http.services.adguard-admin.loadbalancer.server.port=3000
+
+# Dashboard (port 80)
+Label=traefik.http.routers.adguard-dashboard.rule="Host(`adguard-dashboard.localhost`)"
+Label=traefik.http.routers.adguard-dashboard.service=adguard-dashboard
+Label=traefik.http.services.adguard-dashboard.loadbalancer.server.port=80
 
 [Install]
 WantedBy=default.target

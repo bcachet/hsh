@@ -58,7 +58,10 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "hverlin.mise-vscode"
+        "hverlin.mise-vscode",
+        "Anthropic.claude-code",
+        "hangxingliu.vscode-systemd-support",
+        "ms-kubernetes-tools.vscode-kubernetes-tools"
       ]
     }
   },

@@ -8,5 +8,7 @@ Network=whoami.network
 Network=dmz.network
 Label=traefik.enable=true
 Label=traefik.docker.network=systemd-dmz
-Label=traefik.http.routers.whoami.rule="Host(`whoami.localhost`)"
 Label=traefik.http.services.whoami.loadbalancer.server.port=80
+Label=traefik.http.routers.whoami.rule="Path(`/whoami`)"
+Label=traefik.http.middlewares.strip-whoami.stripprefix.prefixes="/whoami"
+Label=traefik.http.routers.whoami.middlewares=strip-whoami@docker
