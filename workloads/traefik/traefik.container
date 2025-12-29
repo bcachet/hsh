@@ -1,0 +1,24 @@
+[Unit]
+Description=Traefik
+After=local-fs.target
+
+[Install]
+WantedBy=default.target
+
+[Container]
+ContainerName=traefik
+Image=docker.io/library/traefik:3
+Network=dmz.network
+PublishPort=80:80/tcp
+PublishPort=8080:8080/tcp
+PublishPort=443:443/tcp
+Volume=/run/user/1000/podman/podman.sock:/var/run/docker.sock:z
+Exec=--accesslog=true \
+  --log.level=info \
+  --api.dashboard=true \
+  --api.insecure=true \
+  --entrypoints.http.address=":80" \
+  --providers.docker=true \
+  --providers.docker.exposedbydefault=false
+Sysctl=net.ipv4.ip_unprivileged_port_start=0
+SecurityLabelType=container_runtime_t

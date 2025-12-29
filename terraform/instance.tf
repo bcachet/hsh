@@ -88,16 +88,34 @@ resource "exoscale_security_group_rule" "hsh_adguard_dns_udp" {
   end_port          = 53
 }
 
-resource "exoscale_security_group_rule" "hsh_adguard_admin" {
+resource "exoscale_security_group_rule" "hsh_adguard_dashboard" {
   security_group_id = exoscale_security_group.hsh.id
   type              = "INGRESS"
   protocol          = "TCP"
   cidr              = "0.0.0.0/0"
-  start_port        = 5300
-  end_port          = 5300
+  start_port        = 8088
+  end_port          = 8088
 }
 
-resource "exoscale_security_group_rule" "hsh_adguard_dns_over_http" {
+resource "exoscale_security_group_rule" "hsh_traefik_http" {
+  security_group_id = exoscale_security_group.hsh.id
+  type              = "INGRESS"
+  protocol          = "TCP"
+  cidr              = "0.0.0.0/0"
+  start_port        = 80
+  end_port          = 80
+}
+
+resource "exoscale_security_group_rule" "hsh_traefik_https" {
+  security_group_id = exoscale_security_group.hsh.id
+  type              = "INGRESS"
+  protocol          = "TCP"
+  cidr              = "0.0.0.0/0"
+  start_port        = 443
+  end_port          = 443
+}
+
+resource "exoscale_security_group_rule" "hsh_traefik_dashboard" {
   security_group_id = exoscale_security_group.hsh.id
   type              = "INGRESS"
   protocol          = "TCP"

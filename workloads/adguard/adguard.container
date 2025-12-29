@@ -1,0 +1,25 @@
+[Unit]
+Description= Ad-Guard Home
+After=traefik.container
+
+[Container]
+ContainerName=adguard
+Network=adguard.network
+Network=dmz.network
+Image=docker.io/adguard/adguardhome:latest
+Volume=adguard-work.volume:/opt/adguardhome/work:Z
+Volume=adguard-conf.volume:/opt/adguardhome/conf:Z
+
+# Admin interface
+PublishPort=5300:3000/tcp
+# Dashboard
+PublishPort=8088:80/tcp
+# DNS
+PublishPort=53:53/udp
+PublishPort=53:53/tcp
+
+[Install]
+WantedBy=default.target
+
+[Service]
+Restart=unless-stopped

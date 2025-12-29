@@ -1,0 +1,12 @@
+[Unit]
+After=traefik.container
+
+[Container]
+ContainerName=whoami
+Image=docker.io/traefik/whoami:latest
+Network=whoami.network
+Network=dmz.network
+Label=traefik.enable=true
+Label=traefik.docker.network=systemd-dmz
+Label=traefik.http.routers.whoami.rule="Host(`whoami.localhost`)"
+Label=traefik.http.services.whoami.loadbalancer.server.port=80

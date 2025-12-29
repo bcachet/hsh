@@ -6,13 +6,14 @@
 !.devcontainer/devcontainer.json
 !mise.toml
 
-# Podman Systemd Quadlet
+# Podman Systemd Quadlets
 !workloads/
-!workloads/adguard/
-# !workloads/adguard/*.container
-# !workloads/adguard/*.volume
-!workloads/adguard/*.kube
-!workloads/adguard/*.yaml
+!workloads/*/
+!workloads/*/*.kube
+!workloads/*/*.yaml
+!workloads/*/*.container
+!workloads/*/*.volume
+!workloads/*/*.network
 
 # Terraform
 !terraform/

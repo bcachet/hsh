@@ -1,0 +1,6 @@
+[Unit]
+Description=WhoAMI Network
+
+[Network]
+Driver=bridge
+Internal=false

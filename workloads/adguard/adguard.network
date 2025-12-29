@@ -1,0 +1,6 @@
+[Unit]
+Description=Ad-Guard Home Network
+
+[Network]
+Driver=bridge
+Internal=false
