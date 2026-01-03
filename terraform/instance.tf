@@ -45,6 +45,21 @@ data "ct_config" "hsh" {
   )
 }
 
+# resource "exoscale_elastic_ip" "hsh_eip" {
+#   zone = var.zone
+#   address_family = "inet4"
+#   reverse_dns = "host3d.org"
+#   healthcheck {
+#     mode         = "http"
+#     port         = 80
+#     uri          = "/whoami"
+#     interval     = 5
+#     timeout      = 3
+#     strikes_ok   = 2
+#     strikes_fail = 3
+#   }
+# }
+
 resource "exoscale_compute_instance" "hsh" {
   name               = "hsh"
   zone               = var.zone
@@ -53,6 +68,7 @@ resource "exoscale_compute_instance" "hsh" {
   template_id        = data.exoscale_template.template.id
   security_group_ids = [exoscale_security_group.hsh.id]
   ssh_keys           = [var.ssh_key.name]
+  # elastic_ip_ids     = [exoscale_elastic_ip.hsh_eip.id]
 
   user_data = data.ct_config.hsh.rendered
 }
@@ -88,15 +104,6 @@ resource "exoscale_security_group_rule" "hsh_adguard_dns_udp" {
   end_port          = 53
 }
 
-resource "exoscale_security_group_rule" "hsh_adguard_dashboard" {
-  security_group_id = exoscale_security_group.hsh.id
-  type              = "INGRESS"
-  protocol          = "TCP"
-  cidr              = "0.0.0.0/0"
-  start_port        = 8088
-  end_port          = 8088
-}
-
 resource "exoscale_security_group_rule" "hsh_traefik_http" {
   security_group_id = exoscale_security_group.hsh.id
   type              = "INGRESS"
@@ -113,13 +120,4 @@ resource "exoscale_security_group_rule" "hsh_traefik_https" {
   cidr              = "0.0.0.0/0"
   start_port        = 443
   end_port          = 443
-}
-
-resource "exoscale_security_group_rule" "hsh_traefik_dashboard" {
-  security_group_id = exoscale_security_group.hsh.id
-  type              = "INGRESS"
-  protocol          = "TCP"
-  cidr              = "0.0.0.0/0"
-  start_port        = 8080
-  end_port          = 8080
 }

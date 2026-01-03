@@ -61,7 +61,8 @@
         "hverlin.mise-vscode",
         "Anthropic.claude-code",
         "hangxingliu.vscode-systemd-support",
-        "ms-kubernetes-tools.vscode-kubernetes-tools"
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "HashiCorp.terraform"
       ]
     }
   },

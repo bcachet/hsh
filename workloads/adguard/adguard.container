@@ -19,12 +19,12 @@ Label=traefik.enable=true
 Label=traefik.docker.network=systemd-dmz
 
 # Admin interface (port 3000)
-Label=traefik.http.routers.adguard-admin.rule="Host(`adguard-admin.localhost`)"
+Label=traefik.http.routers.adguard-admin.rule="Host(`adguard-admin.host3d.org`)"
 Label=traefik.http.routers.adguard-admin.service=adguard-admin
 Label=traefik.http.services.adguard-admin.loadbalancer.server.port=3000
 
 # Dashboard (port 80)
-Label=traefik.http.routers.adguard-dashboard.rule="Host(`adguard-dashboard.localhost`)"
+Label=traefik.http.routers.adguard-dashboard.rule="Host(`adguard-dashboard.host3d.org`)"
 Label=traefik.http.routers.adguard-dashboard.service=adguard-dashboard
 Label=traefik.http.services.adguard-dashboard.loadbalancer.server.port=80
 
