@@ -1,5 +1,6 @@
 [Unit]
 Description=Ad-Guard Home
+Requires=traefik.service
 After=traefik.service
 
 [Kube]

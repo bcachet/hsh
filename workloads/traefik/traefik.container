@@ -1,6 +1,8 @@
 [Unit]
 Description=Traefik
 After=local-fs.target
+Requires=podman.socket
+After=podman.socket
 
 [Install]
 WantedBy=default.target
