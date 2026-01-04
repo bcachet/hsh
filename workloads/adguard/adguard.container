@@ -32,4 +32,4 @@ Label=traefik.http.services.adguard-dashboard.loadbalancer.server.port=80
 WantedBy=default.target
 
 [Service]
-Restart=unless-stopped
+Restart=on-failure
