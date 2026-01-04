@@ -1,0 +1,13 @@
+[Unit]
+After=traefik.service
+
+[Kube]
+Yaml=whoami.yaml
+Network=whoami.network
+Network=dmz.network
+
+[Install]
+WantedBy=default.target
+
+[Service]
+Restart=on-failure

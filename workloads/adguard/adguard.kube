@@ -1,0 +1,14 @@
+[Unit]
+Description=Ad-Guard Home
+After=traefik.service
+
+[Kube]
+Yaml=adguard.yaml
+Network=adguard.network
+Network=dmz.network
+
+[Install]
+WantedBy=default.target
+
+[Service]
+Restart=on-failure

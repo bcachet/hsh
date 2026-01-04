@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: adguard
+  labels:
+    app: adguard
+    traefik.enable: "true"
+    traefik.docker.network: systemd-dmz
+    # Admin interface (port 3000)
+    traefik.http.routers.adguard-admin.rule: "Host(`adguard-admin.host3d.org`)"
+    traefik.http.routers.adguard-admin.service: adguard-admin
+    traefik.http.services.adguard-admin.loadbalancer.server.port: "3000"
+    # Dashboard (port 80)
+    traefik.http.routers.adguard-dashboard.rule: "Host(`adguard-dashboard.host3d.org`)"
+    traefik.http.routers.adguard-dashboard.service: adguard-dashboard
+    traefik.http.services.adguard-dashboard.loadbalancer.server.port: "80"
+spec:
+  restartPolicy: OnFailure
+  containers:
+  - name: adguard
+    image: docker.io/adguard/adguardhome:latest
+    ports:
+    - containerPort: 53
+      protocol: UDP
+      hostPort: 53
+    - containerPort: 53
+      protocol: TCP
+      hostPort: 53
+    - containerPort: 3000
+      protocol: TCP
+    - containerPort: 80
+      protocol: TCP
+    volumeMounts:
+    - name: adguard-work
+      mountPath: /opt/adguardhome/work
+    - name: adguard-conf
+      mountPath: /opt/adguardhome/conf
+  volumes:
+  - name: adguard-work
+    persistentVolumeClaim:
+      claimName: adguard-work
+  - name: adguard-conf
+    persistentVolumeClaim:
+      claimName: adguard-conf
