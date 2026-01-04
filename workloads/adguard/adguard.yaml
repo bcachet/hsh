@@ -5,7 +5,7 @@ metadata:
   labels:
     app: adguard
     traefik.enable: "true"
-    traefik.docker.network: systemd-dmz
+    traefik.docker.network: dmz
     # Admin interface (port 3000)
     traefik.http.routers.adguard-admin.rule: "Host(`adguard-admin.host3d.org`)"
     traefik.http.routers.adguard-admin.service: adguard-admin

@@ -4,3 +4,4 @@ Description=Ad-Guard Home Network
 [Network]
 Driver=bridge
 Internal=false
+NetworkName=adguard

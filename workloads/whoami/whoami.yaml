@@ -5,7 +5,7 @@ metadata:
   labels:
     app: whoami
     traefik.enable: "true"
-    traefik.docker.network: systemd-dmz
+    traefik.docker.network: dmz
     traefik.http.services.whoami.loadbalancer.server.port: "80"
     traefik.http.routers.whoami.rule: "Host(`whoami.host3d.org`)"
 spec:
