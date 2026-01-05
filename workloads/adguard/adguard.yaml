@@ -8,10 +8,16 @@ metadata:
     traefik.docker.network: dmz
     # Admin interface (port 3000)
     traefik.http.routers.adguard-admin.rule: "Host(`adguard-admin.host3d.org`)"
+    traefik.http.routers.adguard-admin.entrypoints: "https"
+    traefik.http.routers.adguard-admin.tls: "true"
+    traefik.http.routers.adguard-admin.tls.certresolver: "letsencrypt"
     traefik.http.routers.adguard-admin.service: adguard-admin
     traefik.http.services.adguard-admin.loadbalancer.server.port: "3000"
     # Dashboard (port 80)
     traefik.http.routers.adguard-dashboard.rule: "Host(`adguard-dashboard.host3d.org`)"
+    traefik.http.routers.adguard-dashboard.entrypoints: "https"
+    traefik.http.routers.adguard-dashboard.tls: "true"
+    traefik.http.routers.adguard-dashboard.tls.certresolver: "letsencrypt"
     traefik.http.routers.adguard-dashboard.service: adguard-dashboard
     traefik.http.services.adguard-dashboard.loadbalancer.server.port: "80"
 spec:
@@ -35,6 +41,13 @@ spec:
       mountPath: /opt/adguardhome/work
     - name: adguard-conf
       mountPath: /opt/adguardhome/conf
+    resources:
+      requests:
+        memory: "32Mi"
+        cpu: "250m"
+      limits:
+        memory: "64Mi"
+        cpu: "500m"
   volumes:
   - name: adguard-work
     persistentVolumeClaim:
