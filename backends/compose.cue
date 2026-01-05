@@ -13,10 +13,10 @@ composefile: compose.#Schema & {
 			"\(k)": {
 				image: "\(deployment.container.registry)/\(deployment.container.name):\(deployment.container.tag)"
 				ports: [for port in deployment.expose.ports {
-					if port.exposedPort != _|_ {
-						"\(port.exposedPort):\(port.containerPort)"
+					if port.hostPort != _|_ {
+						"\(port.hostPort):\(port.containerPort)"
 					}
-					if port.exposedPort == _|_ {
+					if port.hostPort == _|_ {
 						"\(port.containerPort)"
 					}
 				}]

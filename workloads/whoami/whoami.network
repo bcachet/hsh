@@ -1,5 +1,5 @@
 [Unit]
-Description=WhoAMI Network
+Description=Whoami Network
 
 [Network]
 Driver=bridge

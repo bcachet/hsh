@@ -6,23 +6,20 @@ metadata:
     app: whoami
     traefik.enable: "true"
     traefik.docker.network: dmz
-    traefik.http.services.whoami.loadbalancer.server.port: "80"
-    traefik.http.routers.whoami.rule: "Host(`whoami.host3d.org`)"
-    traefik.http.routers.whoami.entrypoints: "https"
-    traefik.http.routers.whoami.tls: "true"
-    traefik.http.routers.whoami.tls.certresolver: "letsencrypt"
+    traefik.http.routers.whoami-host3d-org.rule: Host(`whoami.host3d.org`)
+    traefik.http.routers.whoami-host3d-org.entrypoints: https
+    traefik.http.routers.whoami-host3d-org.tls: "true"
+    traefik.http.routers.whoami-host3d-org.tls.certresolver: letsencrypt
+    traefik.http.services.whoami-host3d-org.loadbalancer.server.port: "80"
 spec:
   restartPolicy: OnFailure
   containers:
-  - name: whoami
-    image: docker.io/traefik/whoami:latest
-    ports:
-    - containerPort: 80
-      protocol: TCP
-    resources:
-      requests:
-        memory: "4Mi"
-        cpu: "10m"
-      limits:
-        memory: "8Mi"
-        cpu: "20m"
+    - name: whoami
+      image: docker.io/traefik/whoami:latest
+      ports:
+        - containerPort: 80
+          protocol: TCP
+      resources:
+        limits:
+          cpu: 500m
+          memory: 8Mi
