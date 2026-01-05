@@ -14,6 +14,17 @@
 !workloads/*/*.container
 !workloads/*/*.volume
 !workloads/*/*.network
+!workloads/*/*.md
+!workloads/*.cue
+
+# CUE
+!schemas/
+!schemas/*.cue
+!backends/
+!backends/*.cue
+!cue.mod/
+!cue.mod/*.cue
+!*_tool.cue
 
 # Terraform
 !terraform/

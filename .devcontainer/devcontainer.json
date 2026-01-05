@@ -54,6 +54,8 @@
   },
   "postCreateCommand": "/home/vscode/.local/bin/mise trust --yes --quiet && /home/vscode/.local/bin/mise install --yes",
   "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker": {
+    }
   },
   "customizations": {
     "vscode": {
@@ -61,9 +63,9 @@
         "hverlin.mise-vscode",
         "Anthropic.claude-code",
         "hangxingliu.vscode-systemd-support",
-        "ms-kubernetes-tools.vscode-kubernetes-tools",
-        "HashiCorp.terraform"
+        "HashiCorp.terraform",
+        "cuelangorg.vscode-cue"
       ]
     }
-  },
+  }
 }
