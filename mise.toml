@@ -1,3 +1,4 @@
 [tools]
+cue = "0.15"
 "github:doy/rbw" = "1.14"
 terraform = "1.14"
