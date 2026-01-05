@@ -20,7 +20,43 @@ data "ct_config" "hsh" {
         ]
       }
       storage = {
+        directories = [
+          {
+            path = "/var/home/core/.config"
+            mode = 448 # 0700 in decimal
+            user = {
+              name = "core"
+            }
+            group = {
+              name = "core"
+            }
+          },
+          {
+            path = "/var/home/core/.config/containers"
+            mode = 448 # 0700 in decimal
+            user = {
+              name = "core"
+            }
+            group = {
+              name = "core"
+            }
+          },
+          {
+            path = "/var/home/core/.config/containers/systemd"
+            mode = 448 # 0700 in decimal
+            user = {
+              name = "core"
+            }
+            group = {
+              name = "core"
+            }
+          }
+        ]
         files = [
+          {
+            path = "/var/lib/systemd/linger/core"
+            mode = 420 # 0644 in decimal
+          },
           {
             path = "/etc/sysctl.d/20-dns-privileged-port.conf"
             contents = {
