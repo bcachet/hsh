@@ -6,4 +6,5 @@ package schemas
 	name!:    string
 	tag:      string | *"latest"
 	args?: [...string]
+	resources?: [string | "memory" | "cpu"]: string
 }

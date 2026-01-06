@@ -7,10 +7,8 @@ import (
 workloads: schemas.#Workloads & {
     whoami: schemas.#Workload & {
         expose: {
-            ports: "80": {}
-            certs: {
-                "whoami.host3d.org": {
-                }
+            ports: "80": {
+                domain: "whoami.host3d.org"
             }
         }
         container: {

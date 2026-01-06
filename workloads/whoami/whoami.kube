@@ -1,7 +1,3 @@
-[Unit]
-Requires=traefik.service
-After=traefik.service
-
 [Kube]
 Yaml=whoami.yaml
 Network=whoami.network
