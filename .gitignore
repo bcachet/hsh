@@ -9,12 +9,10 @@
 # Podman Systemd Quadlets
 !workloads/
 !workloads/*/
-!workloads/*/*.kube
-!workloads/*/*.yaml
-!workloads/*/*.container
-!workloads/*/*.volume
-!workloads/*/*.network
-!workloads/*/*.md
+!workloads/traefik/*.container
+!workloads/traefik/*.volume
+!workloads/traefik/*.network
+!workloads/traefik/*.md
 !workloads/*.cue
 
 # CUE

@@ -17,6 +17,10 @@ workloads: schemas.#Workloads & {
             registry: "docker.io"
             name:     "traefik/whoami"
             tag: "latest"
+            resources: {
+                memory: "8Mi"
+                cpu: "50m"
+            }
         }
     }
 }

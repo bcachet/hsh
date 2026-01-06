@@ -11,9 +11,9 @@ WantedBy=default.target
 ContainerName=traefik
 Image=docker.io/library/traefik:3
 Network=dmz.network
-PodmanArgs=--memory=128m
+PodmanArgs=--memory=256m
 PodmanArgs=--memory-reservation=96m
-PodmanArgs=--cpus=0.2
+PodmanArgs=--cpus=0.5
 PublishPort=80:80/tcp
 PublishPort=443:443/tcp
 Volume=/run/user/1000/podman/podman.sock:/var/run/docker.sock:z
