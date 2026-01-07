@@ -43,5 +43,6 @@ workloads: schemas.#Workloads & {
                 mount: "/opt/adguardhome/work"
             }
         }
+        deps: [workloads.traefik]
     }
 }

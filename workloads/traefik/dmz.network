@@ -1,7 +1,0 @@
-[Unit]
-Description=DMZ Network
-
-[Network]
-Driver=bridge
-Internal=false
-NetworkName=dmz

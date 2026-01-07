@@ -20,7 +20,7 @@ import (
 	// External port to expose
 	hostPort?: int
 
-	domain: string
+	domain?: string
 
 	portType: string | *"TCP" | "UDP"
 }

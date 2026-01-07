@@ -10,30 +10,45 @@ import (
 // Export all Quadlet files for all workloads
 command: quadlet: {	
 	// Generate Quadlet files
-	for workloadName, workload in backends.quadlet {
-		"mkdir-\(workloadName)": file.MkdirAll & {
-			path: "workloads/\(workloadName)/"
-		}
+	generate_file: {
+		for workloadName, workload in backends.quadlet {
+			"mkdir-\(workloadName)": file.MkdirAll & {
+				path: "workloads/\(workloadName)/"
+			}
 
-		// Export .kube file
-		"write-\(workloadName)-kube": file.Create & {
-			$after: [command.quadlet["mkdir-\(workloadName)"]]
-			filename: "workloads/\(workloadName)/\(workloadName).kube"
-			contents: workload.kube.output
-		}
+			// Export .kube file
+			"write-\(workloadName)-kube": file.Create & {
+				$after: [command.quadlet["mkdir-\(workloadName)"]]
+				filename: "workloads/\(workloadName)/\(workloadName).kube"
+				contents: workload.kube.output
+			}
 
-		// Export .network file
-		"write-\(workloadName)-network": file.Create & {
-			$after: [command.quadlet["mkdir-\(workloadName)"]]
-			filename: "workloads/\(workloadName)/\(workloadName).network"
-			contents: workload.network.output
-		}
+			// Export .network file
+			"write-\(workloadName)-network": file.Create & {
+				$after: [command.quadlet["mkdir-\(workloadName)"]]
+				filename: "workloads/\(workloadName)/\(workloadName).network"
+				contents: workload.network.output
+			}
 
-		// Export .yaml file
-		"write-\(workloadName)-yaml": file.Create & {
-			$after: [command.quadlet["mkdir-\(workloadName)"]]
-			filename: "workloads/\(workloadName)/\(workloadName).yaml"
-			contents: yaml.Marshal(workload.yaml.output)
+			// Export .yaml file
+			"write-\(workloadName)-yaml": file.Create & {
+				$after: [command.quadlet["mkdir-\(workloadName)"]]
+				filename: "workloads/\(workloadName)/\(workloadName).yaml"
+				contents: yaml.Marshal(workload.yaml.output)
+			}
 		}
+	}
+	dmz_network: file.Create & {
+		$after: [generate_file["mkdir-traefik"]]
+		filename: "workloads/traefik/dmz.network"
+		contents: """
+			[Unit]
+			Description=DMZ Network
+
+			[Network]
+			Driver=bridge
+			Internal=false
+			NetworkName=dmz
+			"""
 	}
 }

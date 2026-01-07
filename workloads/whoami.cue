@@ -20,5 +20,6 @@ workloads: schemas.#Workloads & {
                 cpu: "50m"
             }
         }
+        deps: [workloads.traefik]
     }
 }

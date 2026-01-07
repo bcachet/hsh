@@ -35,16 +35,25 @@ quadlet: {
 #QuadletKube: {
 	_name: string
 	_workload: _
-	
+
+	// Add Traefik-specific sysctl and security settings
+	_traefikSettings: string
+	if _name == "traefik" {
+		_traefikSettings: "Sysctl=net.ipv4.ip_unprivileged_port_start=0\nSecurityLabelType=container_runtime_t\n"
+	}
+	if _name != "traefik" {
+		_traefikSettings: ""
+	}
+
 	output: """
 		[Kube]
 		Yaml=\(_name).yaml
 		Network=\(_name).network
 		Network=dmz.network
-		
+		\(_traefikSettings)
 		[Install]
 		WantedBy=default.target
-		
+
 		[Service]
 		Restart=on-failure
 		"""
@@ -118,7 +127,7 @@ quadlet: {
 		[for volumeName, volume in _workload.volumes {
 			{
 				name: "\(_name)-\(volumeName)"
-				mountPath: volume.mount
+				mountPath: "\(volume.mount):z"
 			}
 		}],
 	])
