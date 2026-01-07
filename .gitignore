@@ -22,3 +22,6 @@
 # Terraform
 !terraform/
 !terraform/*.tf
+
+# Claude setup
+!CLAUDE.md
