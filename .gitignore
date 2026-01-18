@@ -9,6 +9,7 @@
 # Podman Systemd Quadlets
 !workloads/
 !workloads/*.cue
+!workloads/*.md
 
 # CUE
 !schemas/

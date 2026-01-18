@@ -9,6 +9,8 @@ Objective is to create a server with following services:
 - Password Manager
   - [VaultWarden](https://github.com/dani-garcia/vaultwarden)
   - [BitWarden Lite](https://github.com/bitwarden/self-host/tree/main/bitwarden-lite)
+- Backup to Exoscale SOS
+  - [Restic](https://restic.net/)
 
 I plan to deploy each services via containers.
 I can rely on a managed Kubernetes solution like [Exoscale SKS offering](https://www.exoscale.com/sks/).
@@ -27,6 +29,7 @@ In a second stage, I would like to implement zero downtime on top of this approa
   Inspiration:
   - https://www.redhat.com/en/blog/painless-services-implementing-serverless-rootless-podman-and-systemd
   - https://thinkaboutit.tech/posts/2025-07-20-adhoc-containers-with-systemd-and-quadlet/
+
 - Blue/Green deployment relying on Traefik & scripts to stop _old_ deployment
 
   Inspiration:

@@ -80,12 +80,18 @@ quadlet: {
 	_name: string
 	_workload: _
 	
+	// Build list of ports with domains
+	_portsWithDomains: [for portNum, port in _workload.expose.ports if port.domain != _|_ {port}]
+
 	// Build Traefik labels from expose configuration
 	_traefikLabels: {
-		"traefik.enable": "true"
-		"traefik.docker.network": "dmz"
-		
-		// Generate labels for each domains
+		// Only add base Traefik labels if at least one port defines a domain
+		if len(_portsWithDomains) > 0 {
+			"traefik.enable": "true"
+			"traefik.docker.network": "dmz"
+		}
+
+		// Generate labels for each domain
 		for portNum, port in _workload.expose.ports {
 			if port.domain != _|_ {
 				"traefik.http.routers.\(strings.Split(port.domain, ".")[0]).rule": "Host(`\(port.domain)`)"
@@ -111,16 +117,45 @@ quadlet: {
 		}
 	]
 	
-	// Build environment variables
-	_containerEnvs: [
-		for envName, envValue in _workload.envs {
+	// Build environment variables (including secrets)
+	_containerEnvs: list.Concat([
+		// Regular environment variables (non-secret)
+		[for envName, envValue in _workload.envs {
 			{
 				name: envName
 				value: envValue
 			}
+		}],
+		// Secret-based environment variables
+		[for secretKey, secret in _workload.secrets if secret.type == "env" {
+			{
+				name: secret.envName
+				valueFrom: {
+					secretKeyRef: {
+						name: secret.name
+						key: secret.name
+					}
+				}
+			}
+		}],
+	])
+	
+	// Build secret volume mounts (for mounted secrets)
+	_secretVolumeMounts: [
+		for secretKey, secret in _workload.secrets if secret.type == "mount" {
+			{
+				name: "secret-\(secretKey)"
+				if secret.mountPath != _|_ {
+					mountPath: secret.mountPath
+				}
+				if secret.mountPath == _|_ {
+					mountPath: "/run/secrets/\(secret.name)"
+				}
+				readOnly: true
+			}
 		}
 	]
-	
+
 	// Build volume mounts
 	_volumeMounts: list.Concat([
 		// Regular volumes
@@ -130,8 +165,22 @@ quadlet: {
 				mountPath: "\(volume.mount):z"
 			}
 		}],
+		// Secret mounts
+		_secretVolumeMounts,
 	])
 	
+	// Build secret volumes
+	_secretVolumes: [
+		for secretKey, secret in _workload.secrets if secret.type == "mount" {
+			{
+				name: "secret-\(secretKey)"
+				secret: {
+					secretName: secret.name
+				}
+			}
+		}
+	]
+
 	// Build volumes
 	_volumes: list.Concat([
 		// emptyDir volumes
@@ -159,6 +208,8 @@ quadlet: {
 				}
 			}
 		}],
+		// Secret volumes
+		_secretVolumes,
 	])
 	
 	output: {

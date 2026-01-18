@@ -4,9 +4,10 @@ package schemas
 	name!:      string
 	container!: #Container
 	expose!:    #Expose
-	configs: [string]: 		#Config
-	volumes: [string]: 		#Volume
-	envs:    [string]: 		string
+	configs: [string]: #Config
+	volumes: [string]: #Volume
+	envs:    [string]: string
+	secrets: [string]: #Secret
 	deps: [...#Workload]
 }
 
