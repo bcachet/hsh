@@ -39,5 +39,19 @@ In a second stage, I would like to implement zero downtime on top of this approa
 I plan to define workload with Cuelang.
 I will need to define Cuelang structure that represent Podman Quadlet Container:
 - [Podman Quadlet Container definition](https://docs.podman.io/en/latest/markdown/podman-systemd.unit.5.html)
+- [Generate text from data](https://cuelang.org/docs/howto/use-text-template-execute-to-generate-text-from-data/)
+- [crei: Generate Podman Quadlet systemd units from CUE](https://github.com/lugoues/creidhne)
 
+## Terraform
+```sh
+cd terraform
+terraform init
+terraform plan
+terraform apply
+```
 
+## Cue
+```sh
+cue cmd compose | tee docker-compose.yml && docker-compose up -d
+cue cmd quadlet # Generate Quadlet files in workloads/{workload} directories
+```
