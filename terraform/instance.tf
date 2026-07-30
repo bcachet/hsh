@@ -96,6 +96,11 @@ data "ct_config" "hsh" {
 #   }
 # }
 
+resource "exoscale_ssh_key" "hsh" {
+  name = var.ssh_key.name
+  public_key = var.ssh_key.public_key
+}
+
 resource "exoscale_compute_instance" "hsh" {
   name               = "hsh"
   zone               = var.zone
@@ -103,7 +108,7 @@ resource "exoscale_compute_instance" "hsh" {
   disk_size          = 100
   template_id        = data.exoscale_template.template.id
   security_group_ids = [exoscale_security_group.hsh.id]
-  ssh_keys           = [var.ssh_key.name]
+  ssh_keys           = [exoscale_ssh_key.hsh.name]
   # elastic_ip_ids     = [exoscale_elastic_ip.hsh_eip.id]
 
   user_data = data.ct_config.hsh.rendered

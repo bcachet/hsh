@@ -3,13 +3,8 @@
   "image": "ghcr.io/bcachet/containers/dev:latest",
   "mounts": [
     {
-      "source": "${localEnv:HOME}/.m2/settings.xml",
-      "target": "/home/vscode/.m2/settings.xml",
-      "type": "bind"
-    },
-    {
-      "source": "${localEnv:HOME}/.lein/profiles.clj",
-      "target": "/home/vscode/.lein/profiles.clj",
+      "source": "${localEnv:HOME}/.config/git",
+      "target": "/home/vscode/.config/git",
       "type": "bind"
     },
     {
@@ -17,59 +12,35 @@
       "target": "/home/vscode/.bitwarden-ssh-agent.sock",
       "type": "bind"
     },
-    {
-      "source": "${localEnv:HOME}/.pki",
-      "target": "/home/vscode/.pki",
-      "type": "bind"
-    },
-    {
-      "source": "${localEnv:HOME}/.config/restish",
-      "target": "/home/vscode/.config/restish",
-      "type": "bind"
-    },
-    {
-      "source": "${localEnv:HOME}/.cache/restish",
-      "target": "/home/vscode/.cache/restish",
-      "type": "bind"
-    },
-    {
-      "source": "${localEnv:HOME}/.claude",
-      "target": "/home/vscode/.claude",
-      "type": "bind"
-    },
-    {
-      "source": "${localEnv:HOME}/.claude.json",
-      "target": "/home/vscode/.claude.json",
-      "type": "bind"
-    }
   ],
   "remoteEnv": {
-      "SSH_AUTH_SOCK": "/home/vscode/.bitwarden-ssh-agent.sock",
-      "SHELL": "/usr/bin/fish"
+    "SSH_AUTH_SOCK": "/home/vscode/.bitwarden-ssh-agent.sock",
+    "SHELL": "/usr/bin/fish",
   },
-  "postCreateCommand": "/home/vscode/.local/bin/mise trust --yes --quiet && /home/vscode/.local/bin/mise install --yes",
+  "postCreateCommand": "/home/vscode/.local/bin/mise trust --yes --quiet && /home/vscode/.local/bin/mise install --yes; direnv allow; echo '{\"hasCompletedOnboarding\": true}' > ~/.claude.json",
   "features": {
-    "ghcr.io/devcontainers/features/docker-in-docker": {}
+    "ghcr.io/devcontainers/features/docker-in-docker": {},
   },
   "customizations": {
     "vscode": {
       "extensions": [
         "ms-vscode-remote.remote-containers",
-        "ms-azuretools.vscode-containers",
+        "hverlin.mise-vscode",
         "eamodio.gitlens",
         "esbenp.prettier-vscode",
-        "github.vscode-pull-request-github",
         "redhat.vscode-yaml",
-        "foxundermoon.shell-format",
-        "Gruntfuggly.todo-tree",
-        "wayou.vscode-todo-highlight",
-        "Anthropic.claude-code",
-        "GitHub.vscode-pull-request-github",
-        "github.vscode-github-actions",
-        "docker.docker",
-        "HashiCorp.terraform",
-        "cuelangorg.vscode-cue"
-      ]
+        "golang.go",
+        "cuelangorg.vscode-cue",
+        "hashicorp.terraform",
+        ]
+    },
+    "settings": {
+      "go.lintTool": "golangci-lint",
+      "go.alternateTools": {
+        "go": "/home/vscode/.local/share/mise/installs/go/latest/bin/go",
+        "gopls": "/home/vscode/.local/share/mise/installs/go-golang-org-x-tools-gopls/latest/bin/gopls",
+        "dlv": "/home/vscode/.local/share/mise/installs/go-github-com-go-delve-delve-cmd-dlv/latest/bin/dlv"
+      }
     }
   }
 }

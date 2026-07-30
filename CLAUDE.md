@@ -12,7 +12,7 @@ for DIR in ./schemas ./workloads
     cue vet -c $DIR
 end
 # 3. Run tests
-cue cmd compose | tee docker-compose.yml && docker-compose up -d
+cue cmd compose | tee docker-compose.yml && podman-compose up -d
 docker-compose down -v
 
 # 4. Lint
