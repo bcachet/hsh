@@ -1,5 +1,7 @@
 # Home Sweet Home
 
+## Objectives
+
 Objective is to create a server with following services:
 - Ad Blocker
   - [AdGuard Home](https://adguard.com/en/adguard-home/overview.html)
@@ -17,9 +19,23 @@ I can rely on a managed Kubernetes solution like [Exoscale SKS offering](https:/
 I would easily find Helm charts (official or not) for the various services I plan to use.
 
 But I want to use this opportunity to learn things.
+
+## Podman Quadlets
+
 In the initial implementation, I plan to rely on the following:
 - Podman Quadlet to run workloads in Podman containers as systemd services
+- Cuelang to define workloads
+- Export workload definition to Cuelang structure that represent [Podman Quadlet resources](https://docs.podman.io/en/latest/markdown/podman-systemd.unit.5.html)
+- Generate Podman Quadlet Kube files out of Cuelang Podman Quadlet structure (via [text/template package](https://cuelang.org/docs/howto/use-text-template-execute-to-generate-text-from-data/))
+- [Podman REST API](https://docs.podman.io/en/latest/_static/api.html) to deploy Podman Quadlets to targeted hosts
+- Handle HTTP requests through [tool/http package](https://pkg.go.dev/cuelang.org/go/pkg/tool/http)
 - Traefik as reverse DNS
+
+> [!NOTE]
+> [crei](https://github.com/lugoues/creidhne) allows to generate Podman Quadlet systemd units files from CUE data
+> It may be a good source of inspiration
+
+## Zero downtime
 
 In a second stage, I would like to implement zero downtime on top of this approach via one of the following approach
 - [Podman socket activation](https://github.com/containers/podman/blob/main/docs/tutorials/socket_activation.md) + 
@@ -36,12 +52,8 @@ In a second stage, I would like to implement zero downtime on top of this approa
   - https://github.com/evolutics/zero-downtime-deployments-with-podman-docker-or-docker-compose
   - https://github.com/dryaf/deploy
 
-I plan to define workload with Cuelang.
-I will need to define Cuelang structure that represent Podman Quadlet Container:
-- [Podman Quadlet Container definition](https://docs.podman.io/en/latest/markdown/podman-systemd.unit.5.html)
-- [Generate text from data](https://cuelang.org/docs/howto/use-text-template-execute-to-generate-text-from-data/)
-- [crei: Generate Podman Quadlet systemd units from CUE](https://github.com/lugoues/creidhne)
 
+# Quick start
 ## Terraform
 ```sh
 cd terraform
